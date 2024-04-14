@@ -81,6 +81,7 @@ const LoginScreen = ({ onLogin }) => {
   const [error, setError] = useState("");
 
   const handleLogin = () => {
+    // onLogin();
     if (username === "admin" && password === "password") {
       onLogin();
     } else {

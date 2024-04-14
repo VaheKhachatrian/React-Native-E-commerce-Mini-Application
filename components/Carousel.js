@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
-import { View, Text, ScrollView, Dimensions, StyleSheet } from 'react-native';
+import { View, ScrollView, Dimensions, StyleSheet, Image } from 'react-native';
+import banner1 from '../assets/banner/banner1.jpg';
+import banner2 from '../assets/banner/banner2.jpg';
+import banner3 from '../assets/banner/banner3.jpg';
 
 const Carousel = ({ items }) => {
   const [currentPage, setCurrentPage] = useState(0);
@@ -21,8 +24,8 @@ const Carousel = ({ items }) => {
         scrollEventThrottle={16}
       >
         {items.map((item, index) => (
-          <View key={index} style={[styles.itemContainer, { width: screenWidth }]}>
-            <Text style={styles.itemText}>{item}</Text>
+          <View key={index} style={[styles.itemContainer, { width: screenWidth * 0.89 }]}>
+            <Image source={item} style={{ width: '100%', height: '100%' }} resizeMode="cover" />
           </View>
         ))}
       </ScrollView>
@@ -47,9 +50,9 @@ const styles = StyleSheet.create({
   itemContainer: {
     alignItems: 'center',
     justifyContent: 'center',
-  },
-  itemText: {
-    fontSize: 24,
+    width: '100%',
+    height: '100%',
+    // paddingHorizontal: 10,
   },
   pagination: {
     flexDirection: 'row',
@@ -68,7 +71,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const items = ['Item 1', 'Item 2', 'Item 3', 'Item 4'];
+const items = [banner1, banner2, banner3];
 export default function App() {
   return (
     <View style={{ flex: 1, padding: 20 }}>
