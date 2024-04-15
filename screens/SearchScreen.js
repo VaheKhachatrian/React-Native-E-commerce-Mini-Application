@@ -1,25 +1,20 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, FlatList, StyleSheet, Dimensions } from 'react-native';
-import SearchBar from '../components/searchBar';
-import ProductCard from '../components/ProductCard'; 
+import { View, StyleSheet } from 'react-native';
+import SearchBar from '../components/SearchBar';
+import ProductList from '../components/ProductList'; 
 
-const SearchScreen = () => {
-  const [searchResults, setSearchResults] = useState([]);
-  // const products = [
-  //   { id: 1, name: 'Product 1', price: 10 },
-  //   { id: 2, name: 'Product 2', price: 20 },
-  // ];
+const SearchScreen = () => {  
   
-  const [products, setproducts] = useState([])
+  const [products, setProducts] = useState([])
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('https://dummyjson.com/products')
+        const response = await fetch('https://dummyjson.com/products');
         if(!response.ok) {
           throw new Error("Network response was not ok");
-
         }
-        setCategoryProducts(await response.json());
+        let responseData = await response.json();
+        setProducts(responseData.products);
         
       } catch (err) {
         //TODO: handle error
@@ -28,27 +23,18 @@ const SearchScreen = () => {
     fetchData();
   }, [])
 
-  useState(() => {
-    setSearchResults(products);
-  }, []);
-
   const handleSearch = (searchText) => {
+    console.log(typeof products);
     const filteredProducts = products.filter((product) =>
-      product.name.toLowerCase().includes(searchText.toLowerCase())
+      product.title.toLowerCase().includes(searchText.toLowerCase())
     );
-    setSearchResults(filteredProducts);
+    setProducts(filteredProducts);
   };
 
   return (
     <View style={styles.container}>
       <SearchBar onSearch={handleSearch} />
-      <FlatList
-        contentContainerStyle={styles.listContainer}
-        data={searchResults}
-        keyExtractor={(item) => item.id.toString()}
-        numColumns={2}
-        renderItem={({ item }) => <ProductCard product={item} />}
-      />
+      <ProductList products={products} />
     </View>
   );
 };

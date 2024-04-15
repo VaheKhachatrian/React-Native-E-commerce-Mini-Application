@@ -5,18 +5,18 @@ import { useState, useEffect } from 'react';
 
 
 const CatalogScreen = ({ route }) => {
-const category  = route.params.category;
+const category  = route.params.categoryName;
 
-  const [categoryProducts, setCategoryProducts] = useState([])
+  const [categoryProducts, setCategoryProducts] = useState([]);
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await fetch('https://dummyjson.com/products/category/' + category)
         if(!response.ok) {
           throw new Error("Network response was not ok");
-
         }
-        setCategoryProducts(await response.json());
+        let responseData = await response.json();
+        setCategoryProducts(responseData.products);
         
       } catch (err) {
         //TODO: handle error

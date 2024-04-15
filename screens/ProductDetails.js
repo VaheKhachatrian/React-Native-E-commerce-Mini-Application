@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, Image, StyleSheet } from 'react-native';
-import AddToCartButton from '../components/addToCart';
+import AddToCartButton from '../components/AddToCart';
 import Carousel from '../components/Carousel';
 
 const ProductDetails = ({ route }) => {

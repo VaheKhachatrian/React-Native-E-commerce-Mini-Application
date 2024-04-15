@@ -1,13 +1,14 @@
 import React from 'react';
 import { View, Text, Image, StyleSheet } from 'react-native';
 
-const ProfileCard = ({ username, gender }) => {
+const ProfileCard = ({ profile }) => {
+  const { firstName, lastName, gender, image } = profile;
   return (
     <View style={styles.container}>
-      <Image style={styles.userIcon} />
+      <Image style={styles.userIcon} source={{uri: String(image)}}/>
       <View style={styles.userInfo}>
-        <Text style={styles.username}>{username}</Text>
-        <Text style={styles.gender}>Gender: {gender}</Text>
+        <Text style={styles.username}>{`${firstName} ${lastName}`}</Text>
+        <Text style={styles.gender}>{gender}</Text>
       </View>
     </View>
   );

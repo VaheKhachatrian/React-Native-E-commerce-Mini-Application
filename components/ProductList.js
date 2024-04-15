@@ -3,7 +3,7 @@ import { View, StyleSheet, ScrollView } from 'react-native';
 import ProductCard from './ProductCard';
 
 const ProductList = ({ products }) => {
-  const productsList = products.products;
+  const productsList = products;
   
 
   return (

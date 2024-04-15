@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { View, StyleSheet, ScrollView, Button, FlatList } from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import ProductCard from '../components/ProductCard';
-import { Text } from 'react-native';
+import React, { useState, useEffect } from "react";
+import { View, StyleSheet, ScrollView, Button, FlatList } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import ProductCard from "../components/ProductCard";
+import { Text } from "react-native";
+import { useFocusEffect } from "@react-navigation/native";
 
 const WishlistScreen = () => {
   const [favorites, setFavorites] = useState([]);
@@ -13,13 +14,13 @@ const WishlistScreen = () => {
 
   const fetchFavorites = async () => {
     try {
-      const favoritesJson = await AsyncStorage.getItem('favorites');
+      const favoritesJson = await AsyncStorage.getItem("favorites");
       if (favoritesJson) {
         const favoritesArray = JSON.parse(favoritesJson);
         setFavorites(favoritesArray);
       }
     } catch (error) {
-      console.error('Error fetching favorites:', error);
+      console.error("Error fetching favorites:", error);
     }
   };
 
@@ -27,21 +28,21 @@ const WishlistScreen = () => {
     fetchFavorites();
   };
   const renderItem = ({ item }) => {
-    console.log(item);
-    
+
     return (
-    <ProductCard
-      name={item.name}
-      rating={item.rating}
-      price={item.price}
-      brand={item.brand}
-      category={item.category}
-      imageSource={item.imageSource}
-      isFavoritee={true}
-      onToggleFavorite={() => console.log('Toggling favorite')}
-      onUpdateScreen={updateScreen}
-    />
-  )};
+      <ProductCard
+        name={item.name}
+        rating={item.rating}
+        price={item.price}
+        brand={item.brand}
+        category={item.category}
+        imageSource={item.imageSource}
+        isFavoritee={true}
+        onToggleFavorite={() => console.log("Toggling favorite")}
+        onUpdateScreen={updateScreen}
+      />
+    );
+  };
 
   return (
     <View style={styles.container}>
@@ -49,17 +50,17 @@ const WishlistScreen = () => {
         <Button title="Refresh" onPress={updateScreen} color={"#7867BE"} />
       </View>
       {favorites.length > 0 ? (
-      <FlatList
-        data={favorites}
-        renderItem={renderItem}
-        keyExtractor={(item, index) => index.toString()}
-        numColumns={2}
-        contentContainerStyle={styles.flatListContent}
-        ItemSeparatorComponent={() => <View style={styles.separator} />}
-      />
-    ) : (
-      <Text>No favorites found</Text>
-    )}
+        <FlatList
+          data={favorites}
+          renderItem={renderItem}
+          keyExtractor={(item, index) => index.toString()}
+          numColumns={2}
+          contentContainerStyle={styles.flatListContent}
+          ItemSeparatorComponent={() => <View style={styles.separator} />}
+        />
+      ) : (
+        <Text>No favorites found</Text>
+      )}
     </View>
   );
 };
@@ -67,8 +68,8 @@ const WishlistScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
+    backgroundColor: "#fff",
+    alignItems: "center",
   },
   buttonContainer: {
     marginTop: 20,
@@ -76,9 +77,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
   },
   flatListContent: {
-    alignItems: 'center', 
+    alignItems: "center",
     paddingHorizontal: 10,
-    paddingBottom: 20, 
+    paddingBottom: 20,
   },
   separator: {
     width: 10,

@@ -7,7 +7,7 @@ const CategoryCard = ({ categoryKey, categoryName, imageSource }) => {
   const navigation = useNavigation();
 
   const navigateToCatalog = () => {
-    navigation.navigate("CatalogScreen", {category : categoryKey});
+    navigation.navigate("CatalogScreen", {categoryName : categoryKey});
   };
 
   return (

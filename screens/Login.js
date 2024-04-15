@@ -3,6 +3,7 @@ import { View, Text, TextInput, Button, StyleSheet, Image } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import Logo from "../assets/Logo.png";
 import CustomButton from "../components/CustomButton";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const LoginScreen = ({ onLogin }) => {
   const navigation = useNavigation();
@@ -11,33 +12,29 @@ const LoginScreen = ({ onLogin }) => {
   const [error, setError] = useState("");
 
   const handleLogin = async () => {
-    // try {
-    //   const response = await fetch("https://dummyjson.com/auth/login", {
-    //     method: "POST",
-    //     headers: { "Content-Type": "application/json" },
-    //     body: JSON.stringify({
-    //       username: username,
-    //       password: password,
-    //       expiresInMins: 30,
-    //     }),
-    //   });
-    //   if (!response.ok) {
-    //     setError("Invalid username or password");
-    //     //throw new Error("Network response was not ok");
-    //   }
-    //   else{
-    //     onLogin();
-    //   }
-    // } catch (error) {
-    //   // TODO: handle error
-    // }
-    // await response.json();
-    onLogin();
-    // if (username === "admin" && password === "password") {
-    //   onLogin();
-    // } else {
-    //   setError("Invalid username or password");
-    // }
+    try {
+      const response = await fetch("https://dummyjson.com/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          username: username,
+          password: password,
+          expiresInMins: 30,
+        }),
+      });
+      if (response.ok) {
+        let responseData = await response.json();
+        await AsyncStorage.setItem('token', responseData.token);
+        onLogin();        
+      }
+      else{
+        setError("Invalid username or password");
+        //throw new Error("Network response was not ok");
+      }
+    } catch (error) {
+      console.log(error);
+      // TODO: handle error
+    }
   };
 
   return (

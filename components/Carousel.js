@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { View, ScrollView, Dimensions, StyleSheet, Image } from "react-native";
 
 const Carousel = ({ items }) => {
-  console.log(items[0]);
   const [currentPage, setCurrentPage] = useState(0);
   const { width: screenWidth, height: screenHeight } = Dimensions.get("window");
 

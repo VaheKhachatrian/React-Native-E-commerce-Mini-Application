@@ -26,11 +26,8 @@ const ProductListHome = ({ categoryName }) => {
     };
     fetchData();
   }, []);
-  const productsInfo = {
-    products: categoryProducts
-  }
+
   const handleSeeAll = () => {
-      console.log(categoryName);
     navigation.navigate("CatalogScreen", { categoryName });
   };
   return (
@@ -42,7 +39,7 @@ const ProductListHome = ({ categoryName }) => {
         </TouchableOpacity>
       </View>
       <View style={styles.cardsContainer}>
-        <ProductList products={productsInfo} />
+        <ProductList products={categoryProducts} />
       </View>
     </View>
   );
