@@ -1,16 +1,19 @@
 import React from 'react';
 import { View, Text, Image, StyleSheet } from 'react-native';
 import AddToCartButton from '../components/addToCart';
+import Carousel from '../components/Carousel';
 
 const ProductDetails = ({ route }) => {
   const { name, rating, price, brand, category, description, imageSource } = route.params;
 
   return (
     <View style={{ flex: 1, backgroundColor: 'white' }}>
-      <Image source={imageSource} style={styles.image} />
+      <View style={styles.carouselContainer}>
+        <Carousel items={imageSource} />
+      </View>
       <View style={styles.detailsContainer}>
-        <Text style={styles.detailTextPrice}>${price}</Text>
-        <Text style={styles.detailText}>Name: {name}</Text>
+        <Text style={styles.detailTextTitle}>{name}</Text>
+        <Text style={styles.detailTextPrice}>        ${price}</Text>
         <Text style={styles.detailText}>Rating: {rating}</Text>
         <Text style={styles.detailText}>Brand: {brand}</Text>
         <Text style={styles.detailText}>Category: {category}</Text>
@@ -21,17 +24,13 @@ const ProductDetails = ({ route }) => {
       <View style={styles.addToCartContainer}>
         <AddToCartButton price={price} />
       </View>
-
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  image: {
-    width: '100%',
-    height: 343,
-    resizeMode: 'cover',
-    backgroundColor: '#d9d9d9'
+  carouselContainer: {
+    alignItems: 'center', // Center horizontally
   },
   detailsContainer: {
     paddingHorizontal: 10,
@@ -39,6 +38,10 @@ const styles = StyleSheet.create({
   },
   detailText: {
     fontSize: 16,
+    marginBottom: 10,
+  },
+  detailTextTitle: {
+    fontSize: 20,
     marginBottom: 10,
   },
   detailTextPrice: {

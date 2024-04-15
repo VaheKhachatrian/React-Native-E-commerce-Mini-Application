@@ -19,7 +19,7 @@
 import React from 'react';
 import { View } from 'react-native';
 import MultiProductList from '../components/MultiProductList';
-import Carousel from '../components/Carousel'
+import CarouselHome from '../components/CarouselHome'
 
 const HomeScreen = () => {
   const lists = [
@@ -41,7 +41,7 @@ const HomeScreen = () => {
 
   return (
     <View style={{ flex: 1, justifyContent: 'center', backgroundColor: "white" }}>
-      <Carousel />
+      <CarouselHome />
       <View style={{marginTop: '60%'}}>
       <MultiProductList lists={lists} />
       </View>

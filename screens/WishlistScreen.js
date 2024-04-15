@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { View, StyleSheet, ScrollView, Button, FlatList } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import ProductCard from '../components/ProductCard';
+import { Text } from 'react-native';
 
 const WishlistScreen = () => {
   const [favorites, setFavorites] = useState([]);
@@ -25,7 +26,10 @@ const WishlistScreen = () => {
   const updateScreen = () => {
     fetchFavorites();
   };
-  const renderItem = ({ item }) => (
+  const renderItem = ({ item }) => {
+    console.log(item);
+    
+    return (
     <ProductCard
       name={item.name}
       rating={item.rating}
@@ -37,22 +41,25 @@ const WishlistScreen = () => {
       onToggleFavorite={() => console.log('Toggling favorite')}
       onUpdateScreen={updateScreen}
     />
-  );
+  )};
 
   return (
     <View style={styles.container}>
       <View style={styles.buttonContainer}>
         <Button title="Refresh" onPress={updateScreen} color={"#7867BE"} />
       </View>
+      {favorites.length > 0 ? (
       <FlatList
         data={favorites}
         renderItem={renderItem}
         keyExtractor={(item, index) => index.toString()}
         numColumns={2}
-        isFavoritee={true}
         contentContainerStyle={styles.flatListContent}
         ItemSeparatorComponent={() => <View style={styles.separator} />}
       />
+    ) : (
+      <Text>No favorites found</Text>
+    )}
     </View>
   );
 };

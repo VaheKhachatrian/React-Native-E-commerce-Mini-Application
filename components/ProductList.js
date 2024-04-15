@@ -1,36 +1,33 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, ScrollView } from 'react-native';
 import ProductCard from './ProductCard';
-import { useNavigation } from '@react-navigation/native'; 
 
+const ProductList = ({ products }) => {
+  const productsList = products.products;
+  
 
-const ProductList = ({ categoryName, products }) => {
-    const navigation = useNavigation(); 
-
-    const handleSeeAll = () => {
-        navigation.navigate("CatalogScreen", { categoryName });
-    }
   return (
-    <View style={styles.container}>
-      <View style={styles.header}>
-        <Text style={styles.categoryName}>{categoryName}</Text>
-        <TouchableOpacity style={styles.seeAllButton} onPress={handleSeeAll}>
-          <Text style={styles.seeAllText}>See All</Text>
-        </TouchableOpacity>
-      </View>
-      <View style={styles.cardsContainer}>
-        {products.map((product, index) => (
-          <View key={index} style={styles.cardContainer}>
-            <ProductCard
-              name={product.name}
-              rating={product.rating}
-              price={product.price}
-              imageSource={product.imageSource}
-            />
-          </View>
-        ))}
-      </View>
-    </View>
+    <ScrollView style={styles.container}>
+      <View style={styles.header}></View>
+      {productsList ? (
+        <View style={styles.cardsContainer}>
+          {productsList.map((product, index) => (
+            <View key={index} style={styles.cardContainer}>
+              <ProductCard
+                name={product.title}
+                rating={product.rating}
+                price={product.price}
+                brand={product.brand}
+                category={product.category}
+                imageSource={product.images}
+              />
+            </View>
+          ))}
+        </View>
+      ) : (
+        <></>
+      )}
+    </ScrollView>
   );
 };
 
@@ -73,17 +70,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default function App() {
-  const products = [
-    { name: 'Product 1', rating: 4.5, price: 49.99},
-    { name: 'Product 2', rating: 4.2, price: 39.99},
-    { name: 'Product 3', rating: 4.8, price: 59.99},
-    { name: 'Product 4', rating: 4.1, price: 29.99},
-  ];
-
-  return (
-    <View style={{ flex: 1, padding: 20 }}>
-      <ProductList categoryName="Featured Products" products={products} />
-    </View>
-  );
-}
+export default ProductList

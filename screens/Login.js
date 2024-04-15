@@ -1,73 +1,3 @@
-// import React, { useState } from 'react';
-// import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
-
-// const LoginScreen = () => {
-//   const [username, setUsername] = useState('');
-//   const [password, setPassword] = useState('');
-//   const [error, setError] = useState('');
-
-//   const handleLogin = () => {
-//     // Add your login logic here, e.g., validation, API call
-//     if (username === 'admin' && password === 'password') {
-//       // Navigate to the home screen or perform other actions
-//       console.log('Login successful');
-//     } else {
-//       setError('Invalid username or password');
-//     }
-//   };
-
-//   return (
-//     <View style={styles.container}>
-//       <Text style={styles.title}>Login</Text>
-//       <TextInput
-//         style={styles.input}
-//         placeholder="Username...     "
-//         value={username}
-//         onChangeText={setUsername}
-//       />
-//       <TextInput
-//         style={styles.input}
-//         placeholder="Password..."
-//         secureTextEntry
-//         value={password}
-//         onChangeText={setPassword}
-//       />
-//       <Button title="Login" onPress={handleLogin} />
-//       {error ? <Text style={styles.error}>{error}</Text> : null}
-//     </View>
-//   );
-// };
-
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     justifyContent: 'center',
-//     alignItems: 'center',
-//     padding: 20,
-//   },
-//   title: {
-//     fontSize: 32,
-//     marginBottom: 20,
-//   },
-//   input: {
-//     width: '400px',
-//     height: 50,
-//     borderWidth: 1,
-//     borderColor: '#ccc',
-//     borderRadius: 10,
-//     marginBottom: 20,
-//     padding: 15,
-//     fontSize: 18,
-//   },
-//   error: {
-//     color: 'red',
-//     marginTop: 10,
-//     fontSize: 16,
-//   },
-// });
-
-// export default LoginScreen;
-
 import React, { useState } from "react";
 import { View, Text, TextInput, Button, StyleSheet, Image } from "react-native";
 import { useNavigation } from "@react-navigation/native";
@@ -80,13 +10,34 @@ const LoginScreen = ({ onLogin }) => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
-  const handleLogin = () => {
-    // onLogin();
-    if (username === "admin" && password === "password") {
-      onLogin();
-    } else {
-      setError("Invalid username or password");
-    }
+  const handleLogin = async () => {
+    // try {
+    //   const response = await fetch("https://dummyjson.com/auth/login", {
+    //     method: "POST",
+    //     headers: { "Content-Type": "application/json" },
+    //     body: JSON.stringify({
+    //       username: username,
+    //       password: password,
+    //       expiresInMins: 30,
+    //     }),
+    //   });
+    //   if (!response.ok) {
+    //     setError("Invalid username or password");
+    //     //throw new Error("Network response was not ok");
+    //   }
+    //   else{
+    //     onLogin();
+    //   }
+    // } catch (error) {
+    //   // TODO: handle error
+    // }
+    // await response.json();
+    onLogin();
+    // if (username === "admin" && password === "password") {
+    //   onLogin();
+    // } else {
+    //   setError("Invalid username or password");
+    // }
   };
 
   return (
@@ -108,9 +59,7 @@ const LoginScreen = ({ onLogin }) => {
         value={password}
         onChangeText={setPassword}
       />
-      <CustomButton
-        onPress={handleLogin}
-      />
+      <CustomButton onPress={handleLogin} />
       {error ? <Text style={styles.error}>{error}</Text> : null}
     </View>
   );
@@ -131,8 +80,8 @@ const styles = StyleSheet.create({
     height: 200,
   },
   logo: {
-    width: 250, 
-    height: 150, 
+    width: 250,
+    height: 150,
     marginBottom: 20,
   },
   input: {

@@ -6,13 +6,14 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const screenWidth = Dimensions.get('window').width;
 
-const ProductCard = ({ name, rating, price, brand, category, imageSource, isFavoritee = false }) => {
+const ProductCard = ({ name = "", rating = "", price = "", brand = "", category = "", imageSource = "", isFavoritee = false }) => {
   const navigation = useNavigation(); 
   const [isFavorite, setIsFavorite] = useState(isFavoritee);
 
   const navigateToDetails = () => {
     navigation.navigate("ProductDetails", { name, rating, price, brand, category, imageSource });
   };
+
   const toggleFavorite = async () => {
     setIsFavorite(!isFavorite);
     const product = {
@@ -25,7 +26,7 @@ const ProductCard = ({ name, rating, price, brand, category, imageSource, isFavo
     };
 
     try {
-      let favorites = []
+      let favorites = [];
       const existingFavorites = await AsyncStorage.getItem('favorites');
       favorites = existingFavorites ? JSON.parse(existingFavorites) : [];
 
@@ -36,8 +37,6 @@ const ProductCard = ({ name, rating, price, brand, category, imageSource, isFavo
       }
 
       await AsyncStorage.setItem('favorites', JSON.stringify(favorites));
-
-
     } catch (error) {
       console.log(error);
     }
@@ -46,7 +45,7 @@ const ProductCard = ({ name, rating, price, brand, category, imageSource, isFavo
   return (
     <TouchableOpacity onPress={navigateToDetails}>
       <View style={[styles.container, { width: screenWidth * 0.4 }]}>
-        <Image source={imageSource} style={styles.image} />
+        <Image src={imageSource[0]} style={[styles.image, { height: screenWidth * 0.4 }]} />
         <TouchableOpacity style={styles.favoriteIcon} onPress={toggleFavorite}>
           <Ionicons name={isFavorite ? 'heart' : 'heart-outline'} size={24} color={isFavorite ? 'red' : '#000'} />
         </TouchableOpacity>
@@ -61,7 +60,6 @@ const ProductCard = ({ name, rating, price, brand, category, imageSource, isFavo
     </TouchableOpacity>
   );
 };
-
 const styles = StyleSheet.create({
   container: {
     backgroundColor: '#fff',
@@ -74,7 +72,6 @@ const styles = StyleSheet.create({
   },
   image: {
     width: '100%',
-    height: 150,
     resizeMode: 'cover',
   },
   favoriteIcon: {
@@ -108,3 +105,4 @@ const styles = StyleSheet.create({
 });
 
 export default ProductCard;
+  
