@@ -4,7 +4,8 @@ import { useNavigation } from "@react-navigation/native";
 import { useState, useEffect } from "react";
 import ProductList from "./ProductList";
 
-const ProductListHome = ({ categoryName }) => {
+const ProductListHome = ({ categoryKey, categoryName }) => {
+  console.log(categoryName, categoryKey);
   const navigation = useNavigation();
   const [categoryProducts, setCategoryProducts] = useState([]);
 
@@ -12,7 +13,7 @@ const ProductListHome = ({ categoryName }) => {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          "https://dummyjson.com/products/category/" + categoryName
+          "https://dummyjson.com/products/category/" + categoryKey
         );
         if (!response.ok) {
           throw new Error("Network response was not ok");

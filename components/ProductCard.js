@@ -6,12 +6,12 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const screenWidth = Dimensions.get('window').width;
 
-const ProductCard = ({ name = "", rating = "", price = "", brand = "", category = "", imageSource = "", isFavoritee = false }) => {
+const ProductCard = ({ name = "", rating = "", price = "", brand = "", category = "", imageSource = "", isFavoritee = false, description = "" }) => {
   const navigation = useNavigation(); 
   const [isFavorite, setIsFavorite] = useState(isFavoritee);
 
   const navigateToDetails = () => {
-    navigation.navigate("ProductDetails", { name, rating, price, brand, category, imageSource });
+    navigation.navigate("ProductDetails", { name, rating, price, brand, category, imageSource, description });
   };
 
   const toggleFavorite = async () => {

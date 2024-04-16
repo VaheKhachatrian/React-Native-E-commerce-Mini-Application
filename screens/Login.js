@@ -29,7 +29,6 @@ const LoginScreen = ({ onLogin }) => {
       }
       else{
         setError("Invalid username or password");
-        //throw new Error("Network response was not ok");
       }
     } catch (error) {
       console.log(error);

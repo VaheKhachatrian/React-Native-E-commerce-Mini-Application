@@ -20,7 +20,6 @@ const ProfileScreen = () => {
           throw new Error("Network response was not ok");
         }
         let responseData = await response.json();
-        console.log(responseData);
         setProfile({
           firstName: responseData.firstName,
           lastName: responseData.lastName,

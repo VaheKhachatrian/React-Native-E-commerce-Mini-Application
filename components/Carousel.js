@@ -69,7 +69,6 @@ const styles = StyleSheet.create({
     
     height: "100%",
   
-    // paddingHorizontal: 10,
   },
   pagination: {
     flexDirection: "row",

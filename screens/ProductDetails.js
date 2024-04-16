@@ -30,7 +30,7 @@ const ProductDetails = ({ route }) => {
 
 const styles = StyleSheet.create({
   carouselContainer: {
-    alignItems: 'center', // Center horizontally
+    alignItems: 'center',
   },
   detailsContainer: {
     paddingHorizontal: 10,
